@@ -1,16 +1,14 @@
 package com.example.perspikyliator.playerwidget.app.di;
 
 import com.example.perspikyliator.playerwidget.app.PlayerWidgetApp;
-import com.example.perspikyliator.playerwidget.presentation.service.audio_player.di.AudioPlayerComponent;
 import com.example.perspikyliator.playerwidget.presentation.service.player_widget.di.PlayerWidgetComponent;
+import com.example.perspikyliator.playerwidget.presentation.service.player_widget.manager.di.PlayerManagerComponent;
 
 public class DependencyGraph {
 
     private AppComponent mAppComponent;
-
     private PlayerWidgetComponent mPlayerWidgetComponent;
-
-    private AudioPlayerComponent mAudioPlayerComponent;
+    private PlayerManagerComponent mPlayerManagerComponent;
 
     public DependencyGraph(PlayerWidgetApp playerWidgetApp) {
         mAppComponent = DaggerAppComponent.builder()
@@ -27,12 +25,12 @@ public class DependencyGraph {
         mPlayerWidgetComponent = null;
     }
 
-    public AudioPlayerComponent initAudioPlayerComponent() {
-        mAudioPlayerComponent = mPlayerWidgetComponent.plusAudioPlayerComponent();
-        return mAudioPlayerComponent;
+    public PlayerManagerComponent initPlayerManagerComponent() {
+        mPlayerManagerComponent = mPlayerWidgetComponent.plusPlayerManagerComponent();
+        return mPlayerManagerComponent;
     }
 
-    public void releaseAudioPlayerComponent() {
-        mAudioPlayerComponent = null;
+    public void releasePlayerManagerComponent() {
+        mPlayerManagerComponent = null;
     }
 }

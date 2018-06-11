@@ -5,26 +5,28 @@ import android.os.Handler;
 import com.example.perspikyliator.playerwidget.app.PlayerWidgetApp;
 import com.example.perspikyliator.playerwidget.presentation.base.BaseManager;
 import com.example.perspikyliator.playerwidget.presentation.service.audio_player.AudioPlayerCallback;
-import com.example.perspikyliator.playerwidget.presentation.service.audio_player.manager.AudioPlayerManager;
+import com.example.perspikyliator.playerwidget.presentation.service.audio_player.AudioPlayerManager;
+import com.example.perspikyliator.playerwidget.presentation.service.downloader.DownloaderCallback;
+import com.example.perspikyliator.playerwidget.presentation.service.downloader.DownloadManager;
 import com.example.perspikyliator.playerwidget.presentation.service.player_widget.PlayerWidgetCallback;
 
 import javax.inject.Inject;
 
-public class PlayerWidgetManager extends BaseManager<PlayerWidgetCallback> implements AudioPlayerCallback {
+public class PlayerWidgetManager extends BaseManager<PlayerWidgetCallback> implements AudioPlayerCallback, DownloaderCallback {
     private PlayerState mPlayerState = PlayerState.UNINITIALIZED;
 
     @Inject
     AudioPlayerManager mAudioPlayerManager;
 
-    public void setPlayerState(PlayerState playerState) {
-        mPlayerState = playerState;
-    }
+    @Inject
+    DownloadManager mDownloadManager;
 
     @Override
     public void onAttach(PlayerWidgetCallback callback) {
         super.onAttach(callback);
-        PlayerWidgetApp.getDependencyGraph().initAudioPlayerComponent().inject(this);
+        PlayerWidgetApp.getDependencyGraph().initPlayerManagerComponent().inject(this);
         mAudioPlayerManager.onAttach(this);
+        mDownloadManager.onAttach(this);
     }
 
     public void handleActionPlay() {
@@ -62,6 +64,10 @@ public class PlayerWidgetManager extends BaseManager<PlayerWidgetCallback> imple
         }
     }
 
+    private void setPlayerState(PlayerState playerState) {
+        mPlayerState = playerState;
+    }
+
     @Override
     public void playerIsStopped() {
         setPlayerState(PlayerState.COMPLETED);
@@ -80,7 +86,8 @@ public class PlayerWidgetManager extends BaseManager<PlayerWidgetCallback> imple
     @Override
     public void onDetach() {
         mAudioPlayerManager.onDetach();
-        PlayerWidgetApp.getDependencyGraph().releaseAudioPlayerComponent();
+        mDownloadManager.onDetach();
+        PlayerWidgetApp.getDependencyGraph().releasePlayerManagerComponent();
         super.onDetach();
     }
 }

@@ -1,4 +1,4 @@
-package com.example.perspikyliator.playerwidget.presentation.service.audio_player.manager;
+package com.example.perspikyliator.playerwidget.presentation.service.audio_player;
 
 import android.content.Context;
 import android.media.MediaPlayer;
