@@ -23,7 +23,7 @@
         </activity>
 
         <service
-            android:name=".presentation.service.PlayerWidgetService"
+            android:name=".presentation.service.player_widget.PlayerWidgetService"
             android:enabled="true"
             android:exported="false" />
     </application>

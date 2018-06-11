@@ -10,9 +10,11 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.perspikyliator.playerwidget.R;
-import com.example.perspikyliator.playerwidget.presentation.service.PlayerWidgetService;
+import com.example.perspikyliator.playerwidget.presentation.service.player_widget.PlayerWidgetService;
 
 public class MainActivity extends AppCompatActivity {
+
+    //TODO fix this shit
 
     private static final int CODE_DRAW_OVER_OTHER_APP_PERMISSION = 2084;
 

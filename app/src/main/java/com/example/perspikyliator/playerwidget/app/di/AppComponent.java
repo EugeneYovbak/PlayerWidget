@@ -1,6 +1,6 @@
 package com.example.perspikyliator.playerwidget.app.di;
 
-import com.example.perspikyliator.playerwidget.presentation.service.di.PlayerWidgetComponent;
+import com.example.perspikyliator.playerwidget.presentation.service.player_widget.di.PlayerWidgetComponent;
 
 import javax.inject.Singleton;
 

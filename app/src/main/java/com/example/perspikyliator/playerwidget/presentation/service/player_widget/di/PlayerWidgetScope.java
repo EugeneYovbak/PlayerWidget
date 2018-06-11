@@ -1,4 +1,4 @@
-package com.example.perspikyliator.playerwidget.presentation.service.di;
+package com.example.perspikyliator.playerwidget.presentation.service.player_widget.di;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
