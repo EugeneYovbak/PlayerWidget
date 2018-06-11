@@ -6,4 +6,5 @@
 
     <!--Errors-->
     <string name="error_permission_denied">Draw over other app permission not available</string>
+    <string name="error_loading_file">Loading file failed</string>
 </resources>

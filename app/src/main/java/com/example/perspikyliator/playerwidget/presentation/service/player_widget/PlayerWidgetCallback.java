@@ -6,4 +6,5 @@ public interface PlayerWidgetCallback extends BaseCallback {
     void playerIsLoading();
     void playerIsPlaying();
     void playerIsStopped();
+    void loadingFileError();
 }

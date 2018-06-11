@@ -6,5 +6,4 @@ public interface DownloaderCallback extends BaseCallback {
     void fileDownloadSuccess();
     void fileDownloadError();
     void fileDeleteSuccess();
-    void fileDeleteError();
 }

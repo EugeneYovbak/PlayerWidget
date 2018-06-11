@@ -6,6 +6,8 @@ import com.example.perspikyliator.playerwidget.presentation.base.BaseManager;
 
 public class DownloadManager extends BaseManager<DownloaderCallback> {
 
+    //TODO add real downloader
+
     public void downloadFile() {
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

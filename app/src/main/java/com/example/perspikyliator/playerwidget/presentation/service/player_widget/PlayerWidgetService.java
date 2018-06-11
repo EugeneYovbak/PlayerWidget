@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.perspikyliator.playerwidget.R;
 import com.example.perspikyliator.playerwidget.app.PlayerWidgetApp;
@@ -123,6 +124,11 @@ public class PlayerWidgetService extends Service implements PlayerWidgetCallback
         mPlayerImageView.setImageResource(R.drawable.ic_action_play);
         mPlayerImageView.setVisibility(View.VISIBLE);
         mPlayerProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void loadingFileError() {
+        Toast.makeText(this, getString(R.string.error_loading_file), Toast.LENGTH_SHORT).show();
     }
 
     @OnClick(R.id.iv_close)

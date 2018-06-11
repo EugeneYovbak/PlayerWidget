@@ -66,14 +66,10 @@ public class PlayerWidgetManager extends BaseManager<PlayerWidgetCallback> imple
         applyUninitializedState();
     }
 
-    @Override
-    public void fileDeleteError() {
-        applyUninitializedState();
-    }
-
     private void applyUninitializedState() {
         setPlayerState(PlayerState.UNINITIALIZED);
         mCallback.playerIsStopped();
+        mCallback.loadingFileError();
     }
 
     private void applyFetchingState() {
