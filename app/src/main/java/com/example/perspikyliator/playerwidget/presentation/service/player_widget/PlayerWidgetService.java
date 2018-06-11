@@ -24,6 +24,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class PlayerWidgetService extends Service implements PlayerWidgetCallback {
 
@@ -51,8 +52,8 @@ public class PlayerWidgetService extends Service implements PlayerWidgetCallback
     private void setFloatingView() {
         final WindowManager.LayoutParams params;
         params = new WindowManager.LayoutParams(
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.WRAP_CONTENT,
+                (int)getResources().getDimension(R.dimen.player_view_size),
+                (int)getResources().getDimension(R.dimen.player_view_size),
                 android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O ?
                         WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY :
                         WindowManager.LayoutParams.TYPE_PHONE,
@@ -122,6 +123,11 @@ public class PlayerWidgetService extends Service implements PlayerWidgetCallback
         mPlayerImageView.setImageResource(R.drawable.ic_action_play);
         mPlayerImageView.setVisibility(View.VISIBLE);
         mPlayerProgressBar.setVisibility(View.GONE);
+    }
+
+    @OnClick(R.id.iv_close)
+    void onCloseClick() {
+        stopSelf();
     }
 
     @Override
