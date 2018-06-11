@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="main_padding">@dimen/_13sdp</dimen>
+    <dimen name="toolbar_height">@dimen/_47sdp</dimen>
+    <dimen name="player_view_size">@dimen/_80sdp</dimen>
+
+    <!--Text Size dimens-->
+    <dimen name="text_size_toolbar_title">@dimen/_16sdp</dimen>
+</resources>
