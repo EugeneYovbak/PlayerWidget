@@ -9,27 +9,32 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 
 import com.example.perspikyliator.playerwidget.R;
+import com.example.perspikyliator.playerwidget.app.PlayerWidgetApp;
+import com.example.perspikyliator.playerwidget.presentation.manager.PlayerManager;
 
-public class FloatingPlayerWidgetService extends Service {
+import javax.inject.Inject;
+
+import butterknife.BindView;
+
+public class PlayerWidgetService extends Service {
+
+    @Inject
+    PlayerManager mPlayerManager;
 
     private WindowManager mWindowManager;
     private View mFloatingView;
 
-    public FloatingPlayerWidgetService() {
-    }
-
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
+        PlayerWidgetApp.getDependencyGraph().initPlayerWidgetComponent().inject(this);
+
+
         //Inflate the floating view layout we created
-        mFloatingView = LayoutInflater.from(this).inflate(R.layout.floating_player_widget, null);
+        mFloatingView = LayoutInflater.from(this).inflate(R.layout.widget_player, null);
 
         //Add the view to the window.
         final WindowManager.LayoutParams params;
@@ -54,7 +59,6 @@ public class FloatingPlayerWidgetService extends Service {
             private int initialY;
             private float initialTouchX;
             private float initialTouchY;
-
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -86,10 +90,15 @@ public class FloatingPlayerWidgetService extends Service {
         });
     }
 
-
     @Override
     public void onDestroy() {
         super.onDestroy();
+        PlayerWidgetApp.getDependencyGraph().releasePlayerWidgetComponent();
         if (mFloatingView != null) mWindowManager.removeView(mFloatingView);
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 }

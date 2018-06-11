@@ -1,4 +1,4 @@
-package com.example.perspikyliator.playerwidget.presentation.screen.main;
+package com.example.perspikyliator.playerwidget.presentation;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.perspikyliator.playerwidget.R;
-import com.example.perspikyliator.playerwidget.presentation.service.FloatingPlayerWidgetService;
+import com.example.perspikyliator.playerwidget.presentation.service.PlayerWidgetService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
                             Uri.parse("package:" + getPackageName()));
                     startActivityForResult(intent, CODE_DRAW_OVER_OTHER_APP_PERMISSION);
                 } else {
-                    startService(new Intent(MainActivity.this, FloatingPlayerWidgetService.class));
+                    startService(new Intent(MainActivity.this, PlayerWidgetService.class));
                     finish();
                 }
 
