@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Player Widget</string>
+
+    <!--Main Screen-->
+    <string name="main_button_play_text">Start Player</string>
+
+    <!--Errors-->
+    <string name="error_permission_denied">Draw over other app permission not available</string>
 </resources>
