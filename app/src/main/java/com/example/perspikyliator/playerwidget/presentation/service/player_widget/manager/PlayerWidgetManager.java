@@ -1,13 +1,11 @@
 package com.example.perspikyliator.playerwidget.presentation.service.player_widget.manager;
 
-import android.os.Handler;
-
 import com.example.perspikyliator.playerwidget.app.PlayerWidgetApp;
 import com.example.perspikyliator.playerwidget.presentation.base.BaseManager;
 import com.example.perspikyliator.playerwidget.presentation.service.audio_player.AudioPlayerCallback;
 import com.example.perspikyliator.playerwidget.presentation.service.audio_player.AudioPlayerManager;
-import com.example.perspikyliator.playerwidget.presentation.service.downloader.DownloaderCallback;
 import com.example.perspikyliator.playerwidget.presentation.service.downloader.DownloadManager;
+import com.example.perspikyliator.playerwidget.presentation.service.downloader.DownloaderCallback;
 import com.example.perspikyliator.playerwidget.presentation.service.player_widget.PlayerWidgetCallback;
 
 import javax.inject.Inject;
@@ -30,57 +28,80 @@ public class PlayerWidgetManager extends BaseManager<PlayerWidgetCallback> imple
     }
 
     public void handleActionPlay() {
-        //TODO fix this shit
         switch (mPlayerState) {
             case COMPLETED:
             case FETCHING:
                 //do nothing when fetching or completed
                 break;
             case PLAYING:
-                mAudioPlayerManager.pauseMusic();
-                setPlayerState(PlayerState.PAUSED);
-                mCallback.playerIsStopped();
+                applyPauseState();
                 break;
             case PAUSED:
-                mAudioPlayerManager.playMusic();
-                setPlayerState(PlayerState.PLAYING);
-                mCallback.playerIsPlaying();
+                applyPlayState();
                 break;
             case UNINITIALIZED:
             default:
-                setPlayerState(PlayerState.FETCHING);
-                mCallback.playerIsLoading();
-                //TODO try to get file
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mAudioPlayerManager.playMusic();
-                        setPlayerState(PlayerState.PLAYING);
-                        mCallback.playerIsPlaying();
-                    }
-                }, 4000);
+                applyFetchingState();
                 break;
         }
     }
 
-    private void setPlayerState(PlayerState playerState) {
-        mPlayerState = playerState;
+    @Override
+    public void playerIsStopped() {
+        applyCompletedState();
     }
 
     @Override
-    public void playerIsStopped() {
+    public void fileDownloadSuccess() {
+        applyPlayState();
+    }
+
+    @Override
+    public void fileDownloadError() {
+        applyUninitializedState();
+    }
+
+    @Override
+    public void fileDeleteSuccess() {
+        applyUninitializedState();
+    }
+
+    @Override
+    public void fileDeleteError() {
+        applyUninitializedState();
+    }
+
+    private void applyUninitializedState() {
+        setPlayerState(PlayerState.UNINITIALIZED);
+        mCallback.playerIsStopped();
+    }
+
+    private void applyFetchingState() {
+        mDownloadManager.downloadFile();
+        setPlayerState(PlayerState.FETCHING);
+        mCallback.playerIsLoading();
+    }
+
+    private void applyPlayState() {
+        mAudioPlayerManager.playMusic();
+        setPlayerState(PlayerState.PLAYING);
+        mCallback.playerIsPlaying();
+    }
+
+    private void applyPauseState() {
+        mAudioPlayerManager.pauseMusic();
+        setPlayerState(PlayerState.PAUSED);
+        mCallback.playerIsStopped();
+    }
+
+    private void applyCompletedState() {
+        mDownloadManager.deleteFile();
         setPlayerState(PlayerState.COMPLETED);
         mCallback.playerIsLoading();
-        //TODO try to delete file
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                setPlayerState(PlayerState.UNINITIALIZED);
-                mCallback.playerIsStopped();
-            }
-        }, 1000);
+    }
+
+    private void setPlayerState(PlayerState playerState) {
+        mPlayerState = playerState;
     }
 
     @Override
