@@ -59,6 +59,7 @@ public class PlayerWidgetManager extends BaseManager<PlayerWidgetCallback> imple
     @Override
     public void fileDownloadError() {
         applyUninitializedState();
+        mCallback.loadingFileError();
     }
 
     @Override
@@ -69,7 +70,6 @@ public class PlayerWidgetManager extends BaseManager<PlayerWidgetCallback> imple
     private void applyUninitializedState() {
         setPlayerState(PlayerState.UNINITIALIZED);
         mCallback.playerIsStopped();
-        mCallback.loadingFileError();
     }
 
     private void applyFetchingState() {
