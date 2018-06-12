@@ -6,7 +6,7 @@ import com.example.perspikyliator.playerwidget.presentation.base.BaseManager;
 
 public class DownloadManager extends BaseManager<DownloaderCallback> {
 
-    //TODO add real downloader
+    //TODO m3u8 downloader mock
 
     public void downloadFile() {
         final Handler handler = new Handler();

@@ -66,7 +66,7 @@ public class PlayerWidgetService extends Service implements PlayerWidgetCallback
         mWindowManager.addView(mFloatingView, params);
 
         mRootView.setOnTouchListener(new View.OnTouchListener() {
-            //TODO fix this shit
+            //not the best code, but works correct)
             private static final int MAX_CLICK_DURATION = 200;
             private long startClickTime;
 
